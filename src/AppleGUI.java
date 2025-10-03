@@ -3,6 +3,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Random;
 import javax.swing.*;
+import java.util.Timer;
+import java.util.TimerTask;;
 
 public class AppleGUI extends JFrame implements ActionListener {
 
@@ -12,10 +14,12 @@ public class AppleGUI extends JFrame implements ActionListener {
     private final Random random = new Random();
     private JLabel statusLabel;
     private JLabel scoreLabel;
+    private JLabel timerLabel;
 
     private JButton firstButton = null;
     private int firstX, firstY;
     private int score;
+
 
     public AppleGUI() {
         setTitle("Apple Game");
@@ -46,9 +50,15 @@ public class AppleGUI extends JFrame implements ActionListener {
         statusLabel.setFont(new Font("Serif", Font.BOLD, 20));
         mainPanel.add(statusLabel, BorderLayout.NORTH);
 
-        scoreLabel = new JLabel("0", SwingConstants.CENTER);
+        // Score Label
+        scoreLabel = new JLabel("200", SwingConstants.CENTER);
         scoreLabel.setFont(new Font("Serif", Font.BOLD, 20));
         mainPanel.add(scoreLabel, BorderLayout.SOUTH);
+
+        // Timer Label
+        timerLabel = new JLabel("0", SwingConstants.CENTER);
+        timerLabel.setFont(new Font("Serif", Font.BOLD, 20));
+        mainPanel.add(timerLabel, BorderLayout.WEST);
 
         // Game Board Panel
         JPanel boardPanel = new JPanel(new GridLayout(BOARD_SIZE + 1, BOARD_SIZE + 1));
@@ -73,6 +83,22 @@ public class AppleGUI extends JFrame implements ActionListener {
 
         add(mainPanel);
     }
+
+    // Timer workspace
+    Timer timer = new Timer();
+    TimerTask timertask = new TimerTask() {
+    int time = 200;
+        @Override
+        public void run() {
+            if (time > 0) {
+                timerLabel.setText("" + time);
+                time--;
+            } else {
+                timer.cancel();
+            }
+        }
+    };
+
 
     @Override
     public void actionPerformed(ActionEvent e) {
