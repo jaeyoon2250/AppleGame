@@ -43,9 +43,7 @@ public class AppleGame {
                     int colEnd = Math.max(num1, num3);
 
                     for (int a = colStart; a <= colEnd; a++) {
-                        System.out.println(a);
                         for (int b = rowStart; b <= rowEnd; b++) {
-                            System.out.println(b);
                             sum = apple[b][a] + sum;
                         }
                     }
