@@ -10,16 +10,15 @@ public class AppleGUI extends JFrame implements ActionListener {
 
     private static final int BOARD_SIZE = 10;
     private final int[][] board = new int[BOARD_SIZE][BOARD_SIZE];
-    private final JButton[][] buttons = new JButton[BOARD_SIZE][BOARD_SIZE];
+    private static final JButton[][] buttons = new JButton[BOARD_SIZE][BOARD_SIZE];
     private final Random random = new Random();
-    private JLabel statusLabel;
+    private static JLabel statusLabel;
     private JLabel scoreLabel;
-    private JLabel timerLabel;
+    private static JLabel timerLabel;
 
     private JButton firstButton = null;
     private int firstX, firstY;
     private int score;
-
 
     public AppleGUI() {
         setTitle("Apple Game");
@@ -51,14 +50,14 @@ public class AppleGUI extends JFrame implements ActionListener {
         mainPanel.add(statusLabel, BorderLayout.NORTH);
 
         // Score Label
-        scoreLabel = new JLabel("200", SwingConstants.CENTER);
+        scoreLabel = new JLabel("0", SwingConstants.CENTER);
         scoreLabel.setFont(new Font("Serif", Font.BOLD, 20));
         mainPanel.add(scoreLabel, BorderLayout.SOUTH);
 
         // Timer Label
-        timerLabel = new JLabel("0", SwingConstants.CENTER);
+        timerLabel = new JLabel("200", SwingConstants.CENTER);
         timerLabel.setFont(new Font("Serif", Font.BOLD, 20));
-        mainPanel.add(timerLabel, BorderLayout.WEST);
+        mainPanel.add(timerLabel, BorderLayout.EAST);
 
         // Game Board Panel
         JPanel boardPanel = new JPanel(new GridLayout(BOARD_SIZE + 1, BOARD_SIZE + 1));
@@ -85,23 +84,30 @@ public class AppleGUI extends JFrame implements ActionListener {
     }
 
     // Timer workspace
-    Timer timer = new Timer();
-    TimerTask timertask = new TimerTask() {
-    int time = 200;
-        @Override
-        public void run() {
-            if (time > 0) {
-                timerLabel.setText("" + time);
-                time--;
-            } else {
-                timer.cancel();
-            }
-        }
-    };
+    static Timer timer = new Timer();
+    static TimerTask timertask = new TimerTask() {
+        int time = 20;
 
+        public void run() {
+                if (time > 0) {
+                    timerLabel.setText("" + time);
+                    time--;
+                } else {
+                    timer.cancel();
+                    timerLabel.setText("" + time);
+                    statusLabel.setText("Timer is over, Game Set.");
+                    for (int i = 0; i < BOARD_SIZE; i++) {
+                        for (int j = 0; j < BOARD_SIZE; j++) {
+                            buttons[i][j].setEnabled(false);
+                        }
+                    }
+                }
+            }
+    };
 
     @Override
     public void actionPerformed(ActionEvent e) {
+
         String command = e.getActionCommand();
         String[] parts = command.split(",");
         int y = Integer.parseInt(parts[0]);
@@ -141,7 +147,7 @@ public class AppleGUI extends JFrame implements ActionListener {
                     sum = sum + board[a][b];
                 }
             }
-            
+
             if (sum == 10) {
                 // Match found
                 for (int a = colstart; a <= colEnd; a++) {
@@ -179,6 +185,11 @@ public class AppleGUI extends JFrame implements ActionListener {
     }
 
     public static void main(String[] args) {
+        timerworking(1000);
         SwingUtilities.invokeLater(AppleGUI::new);
+    }
+
+    public static void timerworking(int a) {
+        timer.schedule(timertask, a, 1000);
     }
 }
