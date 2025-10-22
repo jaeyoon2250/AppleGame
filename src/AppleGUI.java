@@ -86,7 +86,7 @@ public class AppleGUI extends JFrame implements ActionListener {
     // Timer workspace
     static Timer timer = new Timer();
     static TimerTask timertask = new TimerTask() {
-        int time = 20;
+        int time = 200;
 
         public void run() {
                 if (time > 0) {
