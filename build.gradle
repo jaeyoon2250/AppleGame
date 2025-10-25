@@ -1,0 +1,34 @@
+plugins {
+    id 'java'
+    id 'application'
+}
+
+// 프로젝트 버전 설정 (환경변수 또는 기본값 1.0 사용)
+version = System.getenv('APP_VERSION') ?: '1.0'
+
+repositories {
+    mavenCentral()
+}
+
+application {
+    // Define the main class for the application.
+    mainClass = 'AppleGameGUI'
+}
+
+jar {
+    manifest {
+        attributes 'Main-Class': 'AppleGameGUI'
+    }
+    from {
+        configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+    }
+    archiveBaseName = 'AppleGame'
+}
+
+sourceSets {
+    main {
+        java {
+            srcDirs = ['src']
+        }
+    }
+}
