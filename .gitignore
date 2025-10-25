@@ -3,3 +3,7 @@
 /bin
 /lib
 /out
+/build
+/.DS_Store
+/.vscode
+/.gradle
