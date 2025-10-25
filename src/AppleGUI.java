@@ -6,11 +6,57 @@ import javax.swing.*;
 import java.util.Timer;
 import java.util.TimerTask;;
 
+class lv extends JFrame {
+    public static int BoardSize = 0;
+    public static int Containerrow = 0;
+    public static int Containercol = 0;
+
+    public lv () {
+        JPanel jp = new JPanel();
+        setTitle("AppleGame");
+        setSize(800, 800);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        JButton btn1 = new JButton("Easy");
+        JButton btn2 = new JButton("Hard");
+        jp.add(btn1);
+        jp.add(btn2);
+        setVisible(true);
+
+        add(jp);
+
+        btn1.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed (ActionEvent e) {
+                BoardSize = 10;
+                Containerrow = 800;
+                Containercol = 800;
+                new AppleGUI();
+                AppleGUI.timerworking(1000);
+                setVisible(false);
+            }
+        });
+
+        btn2.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed (ActionEvent e) {
+                BoardSize = 20;
+                Containerrow = 1400;
+                Containercol = 1000;
+                new AppleGUI();
+                AppleGUI.timerworking(1000);
+                setVisible(false);
+            }
+        });
+    }
+}
+
 public class AppleGUI extends JFrame implements ActionListener {
 
-    private static final int BOARD_SIZE = 10;
-    private final int[][] board = new int[BOARD_SIZE][BOARD_SIZE];
-    private static final JButton[][] buttons = new JButton[BOARD_SIZE][BOARD_SIZE];
+    private static int ContaSizerow = 0;
+    private static int ContaSizecol = 0;
+    private static int BOARD_SIZE;
+    private final int[][] board;
+    private static JButton[][] buttons;
     private final Random random = new Random();
     private static JLabel statusLabel;
     private JLabel scoreLabel;
@@ -21,8 +67,14 @@ public class AppleGUI extends JFrame implements ActionListener {
     private int score;
 
     public AppleGUI() {
+        BOARD_SIZE = lv.BoardSize;
+        board = new int[BOARD_SIZE][BOARD_SIZE];
+        buttons = new JButton[BOARD_SIZE][BOARD_SIZE];
+        ContaSizerow = lv.Containerrow;
+        ContaSizecol = lv.Containercol;
+
         setTitle("Apple Game");
-        setSize(800, 800);
+        setSize(ContaSizerow, ContaSizecol);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(new BorderLayout());
 
@@ -84,9 +136,9 @@ public class AppleGUI extends JFrame implements ActionListener {
     }
 
     // Timer workspace
-    static Timer timer = new Timer();
-    static TimerTask timertask = new TimerTask() {
-        int time = 200;
+    public static Timer timer = new Timer();
+    public static TimerTask timertask = new TimerTask() {
+        public int time = 200;
 
         public void run() {
                 if (time > 0) {
@@ -104,6 +156,10 @@ public class AppleGUI extends JFrame implements ActionListener {
                 }
             }
     };
+    
+    public static void timerworking(int a) {
+        timer.schedule(timertask, a, 1000);
+    }
 
     @Override
     public void actionPerformed(ActionEvent e) {
@@ -185,11 +241,6 @@ public class AppleGUI extends JFrame implements ActionListener {
     }
 
     public static void main(String[] args) {
-        timerworking(1000);
-        SwingUtilities.invokeLater(AppleGUI::new);
-    }
-
-    public static void timerworking(int a) {
-        timer.schedule(timertask, a, 1000);
+        new lv();
     }
 }
