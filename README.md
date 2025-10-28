@@ -35,7 +35,7 @@ APP_VERSION=1.0 ./build.sh
 
 #### Windows:
 ```batch
-set APP_VERSION=1.0 & build.bat
+$env:APP_VERSION="1.0"; .\build.bat
 ```
 
 #### PowerShell:
