@@ -1,56 +1,14 @@
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.Random;
 import javax.swing.*;
 import java.util.Timer;
 import java.util.TimerTask;;
 
-class lv extends JFrame {
-    public static int BoardSize = 0;
-    public static int Containerrow = 0;
-    public static int Containercol = 0;
-
-    public lv () {
-        JPanel jp = new JPanel();
-        setTitle("AppleGame");
-        setSize(800, 800);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        JButton btn1 = new JButton("Easy");
-        JButton btn2 = new JButton("Hard");
-        jp.add(btn1);
-        jp.add(btn2);
-        setVisible(true);
-
-        add(jp);
-
-        btn1.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed (ActionEvent e) {
-                BoardSize = 10;
-                Containerrow = 800;
-                Containercol = 800;
-                new AppleGUI();
-                AppleGUI.timerworking(1000);
-                setVisible(false);
-            }
-        });
-
-        btn2.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed (ActionEvent e) {
-                BoardSize = 20;
-                Containerrow = 1400;
-                Containercol = 1000;
-                new AppleGUI();
-                AppleGUI.timerworking(1000);
-                setVisible(false);
-            }
-        });
-    }
-}
-
-public class AppleGUI extends JFrame implements ActionListener {
+public class AppleGUITest extends JFrame implements ActionListener {
 
     private static int ContaSizerow = 0;
     private static int ContaSizecol = 0;
@@ -66,7 +24,7 @@ public class AppleGUI extends JFrame implements ActionListener {
     private int firstX, firstY;
     private int score;
 
-    public AppleGUI() {
+    public AppleGUITest() {
         BOARD_SIZE = lv.BoardSize;
         board = new int[BOARD_SIZE][BOARD_SIZE];
         buttons = new JButton[BOARD_SIZE][BOARD_SIZE];
