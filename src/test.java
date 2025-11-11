@@ -45,24 +45,11 @@ public class test extends JFrame {
         jp.add(status, BorderLayout.NORTH);
 
         // Game Board Panel
-        JPanel boardPanel = new JPanel(new GridLayout(11, 11));
+        JPanel boardPanel = new JPanel(new GridLayout(10, 10));
         jp.add(boardPanel, BorderLayout.CENTER);
 
-        // for (int i = 0; i < Board_size; i++) {
-        //     boardPanel.add(new JLabel(String.valueOf((char) ('A' + i)), SwingConstants.CENTER));
-        //     for (int j = 0; j < Board_size; j++) {
-        //         label[i][j].setFont(new Font("Serif", Font.PLAIN, 30));
-        //         label[i][j].setHorizontalAlignment(JLabel.CENTER);
-        //         boardPanel.add(label[i][j]); // 패널에 추가
-        //     }
-        // }
-        boardPanel.add(new JLabel("")); // Top-left corner
-        for (int i = 0; i < Board_size; i++) {
-            boardPanel.add(new JLabel(String.valueOf(i), SwingConstants.CENTER));
-        }
 
         for (int i = 0; i < Board_size; i++) {
-            boardPanel.add(new JLabel(String.valueOf((char) ('A' + i)), SwingConstants.CENTER));
             for (int j = 0; j < Board_size; j++) {
                 label[i][j].setFont(new Font("Serif", Font.BOLD, 24));
                 label[i][j].setHorizontalAlignment(JLabel.CENTER);
@@ -87,15 +74,6 @@ public class test extends JFrame {
         }
 
         public void mouseMoved(MouseEvent e) {
-            // int x = e.getX();
-            // int y = e.getY();
-
-            // Component cm = findComponentAt(x, y);
-            // if (cm instanceof JLabel) {
-            // JLabel clabel = (JLabel) cm;
-            // String labelText = clabel.getText();
-            // status.setText(labelText);
-            // }
         }
     }
 
